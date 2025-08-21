@@ -3,5 +3,5 @@
 To build any manim-slides, use
 ```bash
 manim-slides render example.py BasicExample
-manim-slides convert --to=pptx BasicExample basic_example.pptx
+python tools\convert.py BasicExample output.pptx --to pptx
 ```
