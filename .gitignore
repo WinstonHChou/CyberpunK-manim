@@ -178,3 +178,7 @@ cython_debug/
 # manim-slides
 media
 slides
+*.pptx
+
+# theme
+!theme/*.pptx
