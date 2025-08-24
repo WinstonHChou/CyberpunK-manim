@@ -16,7 +16,7 @@ def cli() -> None:
     If no command is specified, defaults to `present`.
     """
 
-cli.add_command(convert.convert)
+# cli.add_command(convert.convert)
 # cli.add_command(present)
 # cli.add_command(checkhealth)
 # cli.add_command(init)
