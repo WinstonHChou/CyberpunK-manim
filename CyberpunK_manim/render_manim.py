@@ -1,11 +1,9 @@
 import mimetypes
 import subprocess
-from base64 import b64encode
 from collections import deque
 from enum import Enum
-from importlib import resources
 from pathlib import Path
-from typing import Any, Callable, Optional, Union
+from typing import Optional, Union
 
 import av
 import pptx
@@ -14,8 +12,6 @@ from PIL import Image
 from tqdm import tqdm
 import subprocess
 
-from manim_slides import Slide
-from manim import config, tempconfig
 import pptx
 from manim_slides.present import get_scenes_presentation_config
 from manim_slides.config import PresentationConfig
