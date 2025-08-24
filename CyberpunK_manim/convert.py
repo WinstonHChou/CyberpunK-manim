@@ -912,7 +912,7 @@ def show_template_option(function: Callable[..., Any]) -> Callable[..., Any]:
 
 # Parent directory of the current script
 dir_path = os.path.dirname(os.path.abspath(__file__))
-default_theme_layout = f"{dir_path}/../theme/CyberpunK-theme.pptx"
+default_theme_layout = f"{dir_path}/theme/CyberpunK-theme.pptx"
 
 @click.command()
 @click.argument("scenes", nargs=-1)

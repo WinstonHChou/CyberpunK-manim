@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=73.0.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "CyberpunK-manim"
+version = "0.0.1"
+description = "Tool for live presentations using manim"
+authors = [{name = "Winston Chou", email = "winston.h.chou@gmail.com"}]
+dependencies = [
+  "manim==0.19.0",
+  "manim-slides[pyside6-full]==5.5.1",
+]
+keywords = ["manim", "slides", "plugin", "manimgl"]
+license = "MIT"
+requires-python = ">=3.9"
+
+[tool.setuptools]
+packages = ["CyberpunK_manim"]
+include-package-data = true
+
+[project.scripts]
+CyberpunK-manim = "CyberpunK_manim.__main__:cli"
