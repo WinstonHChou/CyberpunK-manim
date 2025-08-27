@@ -123,3 +123,29 @@ def render_and_extract(scene_file: str, scene_name: str):
 
     # 3. Extract video info and return
     return extract_embedded_videos(presentation_configs)
+
+def add_animation(slide: pptx.slide.Slide, video: VideoData, left: int, top: int, width: int, height: int) -> pptx.shapes.picture.Movie:
+    """
+    Adds a video as a movie to the given slide and returns the Movie shape.
+    """
+    # Save poster frame image to a temporary file
+    import tempfile
+    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp_img:
+        video.poster_frame_image.save(tmp_img.name)
+        poster_frame_path = tmp_img.name
+
+    # Embed the movie in the slide
+    movie = slide.shapes.add_movie(
+        str(video.file),
+        left, top, width, height,
+        poster_frame_image=poster_frame_path,
+        mime_type=video.mime_type,
+    )
+
+    if video.notes != "":
+        slide.notes_slide.notes_text_frame.text = video.notes
+
+    # Set movie to auto-play and loop if specified
+    auto_play_media(movie, loop=video.loop)
+
+    return movie
