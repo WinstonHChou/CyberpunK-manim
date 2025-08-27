@@ -2,6 +2,12 @@ from pptx import Presentation
 from pathlib import Path
 import os
 
+from pptx.dml.color import RGBColor
+
+class Color():
+    CK_LIGHT_BLUE = RGBColor(222, 235, 247)
+
+
 # Parent directory of the current script
 dir_path = os.path.dirname(os.path.abspath(__file__))
 default_layout_path = f"{dir_path}/theme/CyberpunK-theme.pptx"
