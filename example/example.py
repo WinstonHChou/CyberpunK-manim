@@ -26,13 +26,13 @@ p.level = 2
 # Get animation videos from render_and_extract
 videos = render_and_extract(
     scene_file="example_animation.py",
-    scene_name="BasicExample"
+    scene_name=["BasicExample", "BasicExample2"]
 )
 
 # Add each video to a new blank slide and embed as movie
 blank_slide_layout = prs.slide_layouts[1]
 for video in videos:
     anim_slide = prs.slides.add_slide(blank_slide_layout)
-    add_animation(anim_slide, video, 0, 0, prs.slide_width/3, prs.slide_height/3)
+    add_animation(anim_slide, video, prs.slide_width/2, prs.slide_width/8, prs.slide_width/2, prs.slide_height/2)
 
 prs.save('example.pptx')

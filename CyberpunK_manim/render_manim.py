@@ -102,7 +102,7 @@ def extract_embedded_videos(presentation_configs: list[PresentationConfig]):
             videos.append(video)
     return videos
 
-def render_and_extract(scene_file: str, scene_name: str):
+def render_and_extract(scene_file: str, scene_name: str | list[str]) -> list[VideoData]:
     """
     Renders a Manim Slides scene using subprocess, then converts the result to PPTX using convert.py.
     Args:
@@ -110,15 +110,18 @@ def render_and_extract(scene_file: str, scene_name: str):
         scene_name: Name of the Slide class (e.g., 'BasicExample')
     """
     # 1. Render the slide using manim-slides CLI (subprocess is fine for this)
-    render_cmd = [
-        "manim-slides", "render", scene_file, scene_name
-    ]
+    if isinstance(scene_name, list):
+        render_cmd = ["manim-slides", "render", scene_file]
+        render_cmd.extend(scene_name)
+        scenes = scene_name
+    else:
+        render_cmd = ["manim-slides", "render", scene_file, scene_name]
+        scenes = [scene_name]
     print(f"Running: {' '.join(render_cmd)}")
     subprocess.run(render_cmd, check=True)
 
     # 2. Get presentation configs
     folder = Path(scene_file).parent / "slides"
-    scenes = [scene_name]
     presentation_configs = get_scenes_presentation_config(scenes, folder)
 
     # 3. Extract video info and return
