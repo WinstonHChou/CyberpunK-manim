@@ -1,7 +1,7 @@
 # CyberpunK-manim
 ## Instruction
-To build any manim-slides, use
+To build any manim-slides, for example, do:
 ```bash
-manim-slides render example.py BasicExample
-python tools\convert.py BasicExample output.pptx --to pptx
+cd example/
+python example.py
 ```
