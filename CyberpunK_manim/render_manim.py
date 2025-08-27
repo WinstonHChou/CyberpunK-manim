@@ -4,6 +4,7 @@ from collections import deque
 from enum import Enum
 from pathlib import Path
 from typing import Optional, Union
+import sys
 
 import av
 import pptx
@@ -102,6 +103,29 @@ def extract_embedded_videos(presentation_configs: list[PresentationConfig]):
             videos.append(video)
     return videos
 
+def run_process(cmd):
+    # Start the subprocess
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+
+    # Read and print output line by line in real-time
+    while True:
+        output = process.stdout.readline()
+        if output == '' and process.poll() is not None:
+            break  # Subprocess finished and no more output
+        if output:
+            sys.stdout.write(output)
+            sys.stdout.flush() # Ensure output is flushed immediately
+
+    # Handle any remaining stderr output after the process finishes
+    stderr_output = process.stderr.read()
+    if stderr_output:
+        sys.stderr.write(stderr_output)
+        sys.stderr.flush()
+
+    # Wait for the subprocess to fully complete and get its exit code
+    process.wait()
+    print(f"Subprocess exited with code: {process.returncode}")
+
 def render_and_extract(scene_file: str, scene_name: str | list[str]) -> list[VideoData]:
     """
     Renders a Manim Slides scene using subprocess, then converts the result to PPTX using convert.py.
@@ -118,7 +142,8 @@ def render_and_extract(scene_file: str, scene_name: str | list[str]) -> list[Vid
         render_cmd = ["manim-slides", "render", scene_file, scene_name]
         scenes = [scene_name]
     print(f"Running: {' '.join(render_cmd)}")
-    subprocess.run(render_cmd, check=True)
+    # subprocess.run(render_cmd, capture_output=True, text=True, check=True)
+    run_process(render_cmd)
 
     # 2. Get presentation configs
     folder = Path(scene_file).parent / "slides"
