@@ -181,5 +181,4 @@ slides
 *.pptx
 
 # theme
-!theme/*.pptx
-theme/test.pptx
+!CyberpunK_manim/theme/*.pptx
