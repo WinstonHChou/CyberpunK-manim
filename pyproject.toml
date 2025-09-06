@@ -10,6 +10,7 @@ authors = [{name = "Winston Chou", email = "winston.h.chou@gmail.com"}]
 dependencies = [
   "manim==0.19.0",
   "manim-slides[pyside6-full]==5.5.2",
+  "python-pptx==1.0.2",
 ]
 keywords = ["manim", "slides", "plugin", "manimgl"]
 license = "MIT"
